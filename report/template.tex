@@ -1,0 +1,131 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[colorlinks]{hyperref}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+
+\usepackage[round]{natbib}
+\bibliographystyle{abbrvnat}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{02460-2024 Mini-project 1}
+\fancyhead[R]{s039894, s271828 \& s314159}
+
+% For including code
+% From https://www.overleaf.com/learn/latex/Code_listing
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    upquote=true
+}
+
+\lstset{language=Python, style=mystyle}
+
+\usepackage{lipsum}
+
+\begin{document}
+
+%%% Main text part %%%
+
+\section*{Mini-project 1 in Advanced Machine Learning (02460)}
+by Alice (s039894), Bob (s271828) \& Eve (s314159) on 28 February 2024
+
+\begin{multicols}{2}
+    \subsection*{First Section}
+    \lipsum[1] Similarly to \citet{tomczak2024}, we show some plots in figure \ref{fig:plots}.
+    \begin{figure}[H]
+        \centering
+        \rule{2.5cm}{2.5cm}
+        \rule{2.5cm}{2.5cm}
+        \rule{2.5cm}{2.5cm}
+        \caption{Three plots showing something interesting.}
+        \label{fig:plots}
+    \end{figure}
+    \lipsum[2]
+
+    \subsection*{Second section}
+    \lipsum[3]
+    \begin{figure}[H]
+        \centering
+        \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm}
+        \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm}
+        \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm}
+        \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm} \rule{1cm}{1cm}
+
+        \caption{This could be some a lot of small pictures.}
+    \end{figure}
+    \lipsum[4]
+    \begin{table}[H]
+        \caption{This table shows some cool numbers.}
+        \begin{center}
+            \begin{tabular}{lcc}
+                \toprule
+                Method & Measure 1 & Measure 1 \\
+                \midrule
+                A & 1.0 & 2.0 \\
+                B & 3.0 & 4.9 \\
+                C & 5.0 & 6.0 \\
+                \bottomrule
+             \end{tabular}                
+        \end{center}
+    \end{table}
+
+    \subsection*{Third section}
+    \lipsum[4]
+
+    \lipsum[4]
+\end{multicols}
+
+\newpage
+
+%%% Code snippet part %%%
+
+\section*{Code snippets}
+The following beautiful code snippet prints \lstinline{"Hello world"} 10 times:
+\begin{lstlisting}
+for i in range(10):
+    print("Hello world")
+\end{lstlisting}
+Here is a more advanced code example that prints \lstinline{"Hello world"} 100 times:
+\begin{lstlisting}
+for i in range(100):
+    print("Hello world")
+\end{lstlisting}
+
+\newpage
+
+%%% Bibliography %%%
+
+\bibliography{template}
+
+\end{document}
