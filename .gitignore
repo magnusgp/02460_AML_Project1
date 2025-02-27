@@ -6,6 +6,16 @@ __pycache__/
 # C extensions
 *.so
 
+# data files
+data/*
+
+# model checkpoints
+*.pt
+
+# results
+*.png
+test_loss.txt
+
 # Distribution / packaging
 .Python
 build/
