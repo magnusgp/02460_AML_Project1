@@ -6,6 +6,7 @@ import torch.nn as nn
 import torch.distributions as td
 import torch.nn.functional as F
 from tqdm import tqdm
+import numpy as np
 
 
 class DDPM(nn.Module):
@@ -207,6 +208,44 @@ class FcNetwork(nn.Module):
         """
         x_t_cat = torch.cat([x, t], dim=1)
         return self.network(x_t_cat)
+    
+
+def evaluate(model, data_loader, device):
+    """
+    Evaluate the DDPM model on a test set by computing the average negative ELBO loss.
+
+    Parameters:
+    -----------
+    model: [DDPM]
+        The diffusion model to evaluate.
+    data_loader: [torch.utils.data.DataLoader]
+        DataLoader for the test dataset.
+    device: [torch.device]
+        The device on which to perform evaluation.
+
+    Returns:
+    --------
+    float
+        The average negative ELBO loss over the test set.
+    """
+    model.eval()
+    total_loss = 0.0
+    total_samples = 0
+
+    with torch.no_grad():
+        for batch in data_loader:
+            # If the batch is a tuple/list (e.g., MNIST returns (image, label)), select the image tensor.
+            if isinstance(batch, (list, tuple)):
+                batch = batch[0]
+            batch = batch.to(device)
+            loss = model.loss(batch)
+            # Multiply by batch size to aggregate the loss over all samples.
+            total_loss += loss.item() * batch.size(0)
+            total_samples += batch.size(0)
+
+    avg_loss = total_loss / total_samples
+    return avg_loss
+
 
 
 if __name__ == "__main__":
@@ -219,7 +258,7 @@ if __name__ == "__main__":
     # Parse arguments
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('mode', type=str, default='train', choices=['train', 'sample', 'test', 'sample_mnist'], help='what to do when running the script (default: %(default)s)')
+    parser.add_argument('mode', type=str, default='train', choices=['train', 'sample', 'test', 'sample_mnist', 'multi_run'], help='what to do when running the script (default: %(default)s)')
     parser.add_argument('--data', type=str, default='tg', choices=['tg', 'cb', 'mnist'], help='dataset to use {tg: two Gaussians, cb: chequerboard} (default: %(default)s)')
     parser.add_argument('--model', type=str, default='model.pt', help='file to save model to or load model from (default: %(default)s)')
     parser.add_argument('--samples', type=str, default='samples.png', help='file to save samples in (default: %(default)s)')
@@ -347,14 +386,15 @@ if __name__ == "__main__":
         for run in range(runs):
             print(f"Run {run+1}/{runs}")
             # (Re-)initialize model and prior for each run.
+            network = Unet()
+            model = DDPM(network, T=T).to(args.device)
             optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
-
             # Train model
             train(model, optimizer, train_loader, args.epochs, args.device)
-            test_loss = evaluate(model, mnist_test_loader, device)
+            test_loss = evaluate(model, test_loader, args.device)
             print(f"Test loss (negative ELBO): {test_loss:.4f}")
             losses.append(test_loss)
         losses = np.array(losses)
         print(f"Mean test loss: {losses.mean():.4f} ± {losses.std():.4f}")
         with open('test_loss.txt', 'a') as f:
-            f.write(f"{args.prior} over {runs} runs: Mean = {losses.mean():.4f}, Std = {losses.std():.4f}\n")
+            f.write(f"{runs} runs: Mean = {losses.mean():.4f}, Std = {losses.std():.4f}\n")
