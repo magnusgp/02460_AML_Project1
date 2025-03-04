@@ -1,0 +1,147 @@
+# Options
+batch_size = 64
+data = mnist
+device = cuda
+epochs = 50
+load_pretrained = True
+lr = 0.001
+mode = train
+model = mnist.pt
+samples = mnist.png
+Number of parameters in the network: 2361409
+!!! Loaded Pretrained !!!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24265329: <ddpm> in cluster <dcc> Exited
+
+Job <ddpm> was submitted from host <n-62-20-9> by user <s204144> in cluster <dcc> at Tue Mar  4 13:37:56 2025
+Job was executed on host(s) <4*n-62-20-3>, in queue <gpuv100>, as user <s204144> in cluster <dcc> at Tue Mar  4 13:37:56 2025
+</zhome/87/3/155549> was used as the home directory.
+</zhome/87/3/155549/ADML/w3> was used as the working directory.
+Started at Tue Mar  4 13:37:56 2025
+Terminated at Tue Mar  4 13:41:33 2025
+Results reported at Tue Mar  4 13:41:33 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/sh 
+### General options 
+### -- specify queue -- 
+#BSUB -q gpuv100
+#BSUB -J ddpm
+#BSUB -n 4
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=20GB]"
+#BSUB -M 20GB
+#BSUB -W 01:00
+## BSUB -u
+### -- send notification at start -- 
+## BSUB -B 
+### -- send notification at completion -- 
+## BSUB -N 
+
+#BSUB -o Output.out 
+#BSUB -e Output.err 
+
+cd /zhome/87/3/155549/ADML
+source .venv/bin/activate
+cd w3
+
+python ddpm.py train --data mnist --model mnist.pt --samples mnist.png --device cuda --batch-size 64 --epochs 50 --load_pretrained True
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with signal termination: 2.
+
+Resource usage summary:
+
+    CPU time :                                   0.04 sec.
+    Max Memory :                                 4 MB
+    Average Memory :                             4.00 MB
+    Total Requested Memory :                     81920.00 MB
+    Delta Memory :                               81916.00 MB
+    Max Swap :                                   -
+    Max Processes :                              1
+    Max Threads :                                1
+    Run time :                                   217 sec.
+    Turnaround time :                            217 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <Output.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 24265378: <ddpm> in cluster <dcc> Done
+
+Job <ddpm> was submitted from host <gbarlogin1> by user <s204144> in cluster <dcc> at Tue Mar  4 13:41:10 2025
+Job was executed on host(s) <4*n-62-20-6>, in queue <gpuv100>, as user <s204144> in cluster <dcc> at Tue Mar  4 13:41:12 2025
+</zhome/87/3/155549> was used as the home directory.
+</zhome/87/3/155549/ADML/w3> was used as the working directory.
+Started at Tue Mar  4 13:41:12 2025
+Terminated at Tue Mar  4 13:51:53 2025
+Results reported at Tue Mar  4 13:51:53 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/sh 
+### General options 
+### -- specify queue -- 
+#BSUB -q gpuv100
+#BSUB -J ddpm
+#BSUB -n 4
+#BSUB -gpu "num=1:mode=exclusive_process"
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=20GB]"
+#BSUB -M 20GB
+#BSUB -W 01:00
+## BSUB -u
+### -- send notification at start -- 
+## BSUB -B 
+### -- send notification at completion -- 
+## BSUB -N 
+
+#BSUB -o Output.out 
+#BSUB -e Output.err 
+
+cd /zhome/87/3/155549/ADML
+source .venv/bin/activate
+cd w3
+
+python ddpm.py train --data mnist --model mnist.pt --samples mnist.png --device cuda --batch-size 64 --epochs 50 --load_pretrained True
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   637.00 sec.
+    Max Memory :                                 773 MB
+    Average Memory :                             663.29 MB
+    Total Requested Memory :                     81920.00 MB
+    Delta Memory :                               81147.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                11
+    Run time :                                   710 sec.
+    Turnaround time :                            643 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <Output.err> for stderr output of this job.
+
